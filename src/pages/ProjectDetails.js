@@ -41,6 +41,7 @@ function ProjectForm() {
                     startDate: project.startDate,
                     endDate: project.endDate,
                     projectManager: project.projectManager,
+                    isFevorite: project.isFevorite,
                 });
             }
         }
@@ -53,6 +54,7 @@ function ProjectForm() {
     startDate: '',
     endDate: '',
     projectManager: '',
+    isFevorite: false,
   });
 
   const handleChange = (e) => {
@@ -66,8 +68,8 @@ function ProjectForm() {
   const updateProject = async () => {
     setLoading(true);
       try {
-          const response = await Post(`${API_POST.PORJECT_DETAILS}?projectId=${formData.projectId}&projectName=${formData.projectName}&startDate=${formData.startDate}&endDate=${formData.endDate}&projectManager=${formData.projectManager}&isFevorite=true`);
-          if(response?.status == 200){
+        const response = await Post(`${API_POST.PORJECT_DETAILS}?projectId=${formData.projectId}&projectName=${formData.projectName}&startDate=${formData.startDate}&endDate=${formData.endDate}&projectManager=${formData.projectManager}&isFevorite=${formData.isFevorite}&description=${formData.description}`);
+        if(response?.status == 200){
             navigate(`/`);
             toast.success('Project updated successfully');
           }
@@ -93,7 +95,7 @@ function ProjectForm() {
         <p className="leading-relaxed mb-5 text-gray-600"></p>
         <div className="relative mb-4">
           <label for="name" className="leading-7 text-sm text-gray-600">Project ID |{projectId}</label>
-          <input type="text" id="projectId" name="projectId" value={formData.projectId} onChange={handleChange} className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+          <input type="text" id="projectId" name="projectId" disabled={true} value={formData.projectId} onChange={handleChange} className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="relative mb-4">
           <label for="email" className="leading-7 text-sm text-gray-600">Project Name</label>
@@ -113,10 +115,12 @@ function ProjectForm() {
         </div>
         <div className="relative mb-4 flex justify-start items-center">
           <label for="isFevorite" className="leading-7 text-sm text-gray-600">Favorite</label>
-          <input type="checkbox" id="isFevorite" name="isFevorite" checked={formData.isFevorite} onChange={(e) => setFormData((prevData) => ({
+          <input type="checkbox" id="isFevorite" name="isFevorite" checked={formData.isFevorite} 
+          onChange={(e) => setFormData((prevData) => ({
             ...prevData,
             isFevorite: e.target.checked,
-          }))} className="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ml-[10px]" />
+          }))}
+          className="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ml-[10px]" />
         </div>
         <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" disabled={loading} onClick={handleSubmit}>{loading ? "Updating..." : "Update"}</button>
       </div>

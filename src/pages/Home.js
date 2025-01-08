@@ -1,30 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TableHeader from '../components/TableHeader';
 import TableRow from '../components/TableRow';
-import { Get } from '../common/axios/api';
-import { API_GET } from '../common/constant/api';
 
-const Home = () => {
-    const [tableData, setTableData] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        GetProjectList();
-    }, []);
-
-    const GetProjectList = () => {
-        setLoading(true);
-        Get(API_GET.PROJECTLIST).then((response) => {
-            if (response.status === 200) {
-                setTableData(response.data);
-            }
-        }).catch((error) => {
-            console.error(error);
-        }).finally(() => {
-            setLoading(false);
-        });
-    };
+const Home = ({project, loading}) => {
 
     return (
         <div className="overflow-x-auto">
@@ -33,8 +12,8 @@ const Home = () => {
             : <table className="min-w-full bg-white border border-gray-200">
                 <TableHeader />
                 <tbody>
-                    {tableData.length > 0 && tableData.map((project) => (
-                        <TableRow key={project.id} project={project} />
+                    {project.length > 0 && project.map((_d) => (
+                        <TableRow key={_d.id} project={_d} />
                     ))}
                 </tbody>
             </table>}

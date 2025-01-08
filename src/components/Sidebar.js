@@ -4,7 +4,6 @@ import BarsIcon from '../Icons/Svg/BarsIcon';
 
 const Sidebar = ({project}) => {
   const [isOpen, setIsOpen] = useState(true);
-  console.log(project, 'sjnqjsnjkqnsjknqwjksjkqwns');
   
   return (
     <div className="flex">
@@ -24,8 +23,8 @@ const Sidebar = ({project}) => {
               </a> */}
             <h3 className={`px-4 text-sm font-medium text-gray-500 uppercase ${isOpen ? 'block' : 'hidden'}`}>Favorite Projects</h3>
             </li>
-                {project.map((_d) => (
-            <li className='px-4'>
+                {project.filter(_d => _d.isFevorite == true).map((_d, index) => (
+            <li className='px-4' key={index}>
               <a href="#" className="flex items-center space-x-2 p-3 text-black rounded-md">
                 <span className={`${isOpen ? 'block' : 'hidden'}`}>{_d.projectName}</span>
               </a>
