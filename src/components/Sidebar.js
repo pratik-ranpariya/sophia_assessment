@@ -18,15 +18,15 @@ const Sidebar = ({project}) => {
         <nav className="mt-4">
           <ul className="space-y-2">
             <li>
-              <a href="#" className="flex items-center space-x-2 p-3 bg-blue-600 text-white rounded-md">
+              {/* <a href="#" className="flex items-center space-x-2 p-3 bg-blue-600 text-white rounded-md">
                 <HomeIcon />
                 <span className={`${isOpen ? 'block' : 'hidden'}`}>Project</span>
-              </a>
+              </a> */}
             <h3 className={`px-4 text-sm font-medium text-gray-500 uppercase ${isOpen ? 'block' : 'hidden'}`}>Favorite Projects</h3>
             </li>
                 {project.map((_d) => (
             <li className='px-4'>
-              <a href="#" className="flex items-center space-x-2 p-3 bg-blue-100 text-white rounded-md">
+              <a href="#" className="flex items-center space-x-2 p-3 text-black rounded-md">
                 <span className={`${isOpen ? 'block' : 'hidden'}`}>{_d.projectName}</span>
               </a>
             </li>
